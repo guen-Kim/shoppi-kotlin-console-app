@@ -15,6 +15,9 @@ class ShoppingCategory {
             selectedCategory = readLine()
         }
         if (selectedCategory == "#") {
+            val shoppingCart = ShoppingCart()
+            shoppingCart.showCartItems()
+
         } else {
             if(categories.contains(selectedCategory))
             {
