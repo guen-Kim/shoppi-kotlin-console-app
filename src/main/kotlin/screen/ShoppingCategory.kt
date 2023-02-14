@@ -2,9 +2,10 @@ package screen
 
 import extensions.getNotEmptyString
 
-class ShoppingCategory {
+class ShoppingCategory: Screen() {
 
     fun showCategories() {
+        ScreenStack.push(this)
         val categories = arrayOf("전자기기", "패션", "음식")
         for (category in categories) {
             println(category)
