@@ -6,7 +6,7 @@ import data.Product
 import extensions.getNotEmptyInt
 import extensions.getNotEmptyString
 
-class ShoppingProductList: Screen() {
+class ShoppingProductList(private val selectedCategory: String): Screen() {
     private val products = arrayOf(
         Product("패션", "겨울 패딩"),
         Product("패션", "겨울 바지"),
@@ -19,7 +19,7 @@ class ShoppingProductList: Screen() {
 // products-> products.categoryLabel을 키로하여 value 그룹화
     private val categories:Map<String, List<Product>> = products.groupBy { products-> products.categoryLabel }
 
-    fun showProducts(selectedCategory: String) {
+    fun showProducts() {
         ScreenStack.push(this)
         val categoryProducts = categories[selectedCategory]
         if(!categoryProducts.isNullOrEmpty()) {
@@ -37,13 +37,13 @@ class ShoppingProductList: Screen() {
                 println("${index}. ${product.name}")
             }
             
-            showCartOption(categoryProducts,selectedCategory)
+            showCartOption(categoryProducts)
         }else {
             showEmptyProductMessage(selectedCategory)
         }
     }
 
-    private fun showCartOption(categoryProducts:List<Product>, selectedCategory: String) {
+    private fun showCartOption(categoryProducts:List<Product>) {
         println("""
             $LINE_DIVIDER
             장바구니에 담을 상품 번호를 선택해주세요.
@@ -64,7 +64,7 @@ class ShoppingProductList: Screen() {
                 val shoppingCart = ShoppingCart()
                 shoppingCart.showCartItems()
             }else if (answer =="*"){
-                showProducts(selectedCategory)
+                showProducts()
             } else {
                 //TODO 그 외 값을 입력한 경우에
             }
